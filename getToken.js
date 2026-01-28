@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const key = process.env.key;
 const secret = process.env.secret;
 const tokenUrl = process.env.tokenUrl;
@@ -5,32 +7,26 @@ const scope = process.env.scope;
 const flow = process.env.flow;
 
 exports.getToken = async () => {
-  if (key && secret && tokenUrl && scope && flow) {
-    await fetch(tokenUrl, {
+  try {
+    const tokenResponse = await fetch(tokenUrl, {
       method: "POST",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-type": "application/x-www-form-urlencoded",
       },
       body: new URLSearchParams({
+        grant_type: flow,
+        scope: scope,
         client_id: key,
         client_secret: secret,
-        scope: scope,
-        grant_type: flow,
       }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        resolve(data.access_token);
-      })
-      .catch((error) => {
-        return error;
-      });
-  } else {
-    return new Error("Missing required environment variables");
+    });
+
+    const tokenJson = await tokenResponse.json();
+
+    const token = tokenJson.access_token;
+
+    return token;
+  } catch (err) {
+    return err;
   }
 };

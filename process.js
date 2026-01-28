@@ -2,7 +2,6 @@ const { createJSON } = require('./createJSON');
 const { getToken } = require('./getToken');
 const { sendAllRequests } = require('./sendRequest');
 
-// Parse command line arguments for field names
 const args = process.argv.slice(2);
 let fieldsToClear;
 
@@ -13,14 +12,12 @@ if (args.length === 0) {
     process.exit(1);
 }
 
-// Handle both comma-separated and separate arguments
 if (args.length === 1 && args[0].includes(',')) {
     fieldsToClear = args[0].split(',').map(field => field.trim());
 } else {
     fieldsToClear = args;
 }
 
-// Validate field names
 if (fieldsToClear.some(field => !field || field.trim() === '')) {
     console.error('Error: Field names cannot be empty');
     process.exit(1);

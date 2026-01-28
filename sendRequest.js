@@ -32,7 +32,6 @@ async function sendBatchRequest(batch, authToken) {
 
 async function sendAllRequests(authToken) {
     try {
-        // Ensure results folder exists
         await fs.mkdir('results', { recursive: true });
         
         const jsonContent = await fs.readFile('jsonToPost.json', 'utf8');
@@ -49,7 +48,6 @@ async function sendAllRequests(authToken) {
             try {
                 const result = await sendBatchRequest(batch, authToken);
                 
-                // Save response to file
                 const responseFile = path.join('results', `batch_${i + 1}_response.json`);
                 await fs.writeFile(responseFile, JSON.stringify(result, null, 2));
                 
@@ -61,7 +59,6 @@ async function sendAllRequests(authToken) {
                 }
                 
             } catch (error) {
-                // Save error to file
                 const errorFile = path.join('results', `batch_${i + 1}_error.json`);
                 await fs.writeFile(errorFile, JSON.stringify({
                     error: error.message,

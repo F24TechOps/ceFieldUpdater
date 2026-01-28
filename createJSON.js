@@ -3,7 +3,6 @@ const path = require('path');
 
 async function createJSON(fieldsToClear) {
     try {
-        // Read IDs from inputData.txt
         const inputData = await fs.readFile('inputData.txt', 'utf8');
         const ids = inputData
             .split(/\r?\n/)
@@ -14,7 +13,6 @@ async function createJSON(fieldsToClear) {
             throw new Error('No IDs found in inputData.txt');
         }
 
-        // Create batches of up to 100 items each
         const batches = [];
         for (let i = 0; i < ids.length; i += 100) {
             const batchIds = ids.slice(i, i + 100);
@@ -34,7 +32,6 @@ async function createJSON(fieldsToClear) {
             batches.push({ items: items });
         }
 
-        // Write batches to jsonToPost.json
         await fs.writeFile('jsonToPost.json', JSON.stringify(batches, null, 2));
         
         console.log(`Created ${batches.length} batches with ${ids.length} total IDs`);

@@ -29,8 +29,6 @@ npm install
 ```
 
 2. Configure environment variables in `.env`:
-- `key` - API client ID
-- `secret` - API client secret
 - `baseUrl` - API base URL (should be `https://api.data-crypt.com/api/v1.3`)
 - `tokenUrl` - OAuth token URL
 - `flow` - OAuth flow (client_credentials)
@@ -38,9 +36,17 @@ npm install
 
 3. Add contact IDs to `inputData.txt` (one ID per line)
 
+## Authentication
+
+When you run the program, it will prompt for:
+- **API key** - Your client ID for the data-crypt API
+- **API secret** - Your client secret for the data-crypt API
+
+These credentials are not stored in environment variables for security.
+
 ## Process Flow
 
-1. **Authentication**: Gets OAuth token from the API
+1. **Authentication**: Prompts for credentials and gets OAuth token from the API
 2. **JSON Creation**: Creates batches of 100 contacts each with specified fields set to `null`
 3. **API Requests**: Sends batches to `/contacts/update` endpoint
 4. **Results**: Saves API responses to `results/` folder

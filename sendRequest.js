@@ -1,6 +1,6 @@
-require("dotenv").config();
 const fs = require('fs').promises;
 const path = require('path');
+require("dotenv").config();
 
 const baseUrl = process.env.baseUrl;
 

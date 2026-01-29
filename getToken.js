@@ -1,9 +1,10 @@
 const readline = require('readline');
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+let rl;
+
+function setReadlineInterface(readlineInterface) {
+    rl = readlineInterface;
+}
 
 async function askQuestion(question) {
     return new Promise((resolve) => {
@@ -39,10 +40,10 @@ exports.getToken = async () => {
 
         const token = tokenJson.access_token;
         
-        rl.close();
         return token;
     } catch (err) {
-        rl.close();
         return err;
     }
 };
+
+exports.setReadlineInterface = setReadlineInterface;

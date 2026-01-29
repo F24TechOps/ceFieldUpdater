@@ -1,25 +1,19 @@
-# CE Field Updater
+# Field Nuller
 
 A Node.js application to clear specified fields from contacts in the data-crypt API.
 
 ## Usage
 
-Run the application from your terminal and provide field names as command-line arguments:
+Run the application and follow the interactive prompts:
 
-### Single Field
 ```bash
-node process.js zxt2mvb6y7
+node process.js
 ```
 
-### Multiple Fields (comma-separated)
-```bash
-node process.js "zxt2mvb6y7,anotherField,thirdField"
-```
-
-### Multiple Fields (separate arguments)
-```bash
-node process.js zxt2mvb6y7 anotherField thirdField
-```
+The program will guide you through:
+1. **Authentication**: Enter your API credentials
+2. **Field Selection**: Specify which fields to clear
+3. **Confirmation**: Review and confirm the operation
 
 ## Setup
 
@@ -44,12 +38,20 @@ When you run the program, it will prompt for:
 
 These credentials are not stored in environment variables for security.
 
+## Field Selection
+
+Enter field names as a comma-separated list:
+- Single field: `zxt2mvb6y7`
+- Multiple fields: `zxt2mvb6y7,anotherField,thirdField`
+
 ## Process Flow
 
 1. **Authentication**: Prompts for credentials and gets OAuth token from the API
-2. **JSON Creation**: Creates batches of 100 contacts each with specified fields set to `null`
-3. **API Requests**: Sends batches to `/contacts/update` endpoint
-4. **Results**: Saves API responses to `results/` folder
+2. **Field Selection**: User specifies which fields to clear
+3. **Confirmation**: Shows selected fields and asks for confirmation
+4. **JSON Creation**: Creates batches of 100 contacts each with specified fields set to `null`
+5. **API Requests**: Sends batches to `/contacts/update` endpoint
+6. **Results**: Saves API responses to `results/` folder
 
 ## Output Files
 
